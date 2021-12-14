@@ -7,14 +7,12 @@ set -e
 Timezone=${Timezone:-""}
 Host=${Host:-"nginxdocker"}
 LogTag=${LogTag:-"nginxent[$$]"}
-GenSslCrt=${GenSslCrt:-""}
 
 aaLog() {
     AaLog --aalogheader_host "${Host}" --aalogtag "${LogTag}" "$@"
 }
 
 AaAdjustTime "${Timezone}"
-GenSslCrt "${GenSslCrt}"
 
 RunningSignal ${RunningID:-''}
 

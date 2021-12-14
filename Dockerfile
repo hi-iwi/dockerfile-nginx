@@ -1,11 +1,11 @@
 FROM aario/centos:7
 
-ENV NginxVer nginx-1.18.0
+ENV NginxVer nginx-1.20.2
 
 WORKDIR /usr/local/src
 ADD ./src/* /usr/local/src/
  
-RUN mkdir -p /var/cache/nginx && chown -R Aa:Aa /var/cache/nginx
+RUN mkdir -p /var/cache/nginx && chown -R iwi:iwi /var/cache/nginx
 
 # --with-pcre  rewrite 功能
 RUN yum install -y gcc gcc-c++ lua-devel lua-static zlib-devel openssl openssl-devel which geoip-devel
@@ -29,8 +29,8 @@ RUN ./configure                                 \
     --http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp      \
     --http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp          \
     --http-scgi-temp-path=/var/cache/nginx/scgi_temp            \
-    --user=Aa                                   \
-    --group=Aa                                  \
+    --user=iwi                                  \
+    --group=iwi                                 \
     --with-http_ssl_module                      \
     --with-threads                              \
     --with-file-aio                             \
@@ -48,7 +48,7 @@ RUN yum clean all  && rm -rf /var/cache/yum && rm -rf /usr/local/src/*
 RUN ln -sf /dev/stdout /var/log/dockervol/stdout.log && ln -sf /dev/stderr /var/log/dockervol/stderr.log
 
 # COPY 只能复制当前目录，不复制子目录内容
-COPY --chown=Aa:Aa ./etc/aa/*  /etc/aa/
+COPY --chown=iwi:iwi ./etc/aa/*  /etc/aa/
 
 VOLUME /etc/aa/nginx
 
