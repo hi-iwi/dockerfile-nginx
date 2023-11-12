@@ -10,9 +10,6 @@ RUN mkdir -p /var/cache/nginx && chown -R iwi:iwi /var/cache/nginx
 # --with-pcre  rewrite 功能
 RUN yum install -y gcc gcc-c++ lua-devel lua-static zlib-devel openssl openssl-devel which geoip-devel
 
-
-
-
 RUN if [ -f "/usr/local/src/${NginxVer}/src/http/ngx_http_header_filter_module.c" ]; then \
         sed -Ei "s/\"Server:\s*(nginx\"|\"\s*NGINX_VER|\"\s*NGINX_VER_BUILD)\s*CRLF;/\"Server: luexu.com\" CRLF;/" "/usr/local/src/${NginxVer}/src/http/ngx_http_header_filter_module.c"; \
     fi
