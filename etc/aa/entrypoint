@@ -1,5 +1,4 @@
 #!/bin/bash
-# MAINTAINER Aario <Aario@luexu.com>
 set -e
 
 . /etc/aa/entrypointbase
