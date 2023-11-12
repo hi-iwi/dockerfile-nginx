@@ -11,15 +11,17 @@ RUN mkdir -p /var/cache/nginx && chown -R iwi:iwi /var/cache/nginx
 RUN yum install -y gcc gcc-c++ lua-devel lua-static zlib-devel openssl openssl-devel which geoip-devel
 
 
-WORKDIR /usr/local/src/${NginxVer}
+
 
 RUN if [ -f "/usr/local/src/${NginxVer}/src/http/ngx_http_header_filter_module.c" ]; then \
-        sed -Ei "s/\"Server:\s*(nginx\"|\"\s*NGINX_VER|\"\s*NGINX_VER_BUILD)\s*CRLF;/\"Server: luexu.com\" CRLF;/" /usr/local/src/${NginxVer}/src/http/ngx_http_header_filter_module.c; \
+        sed -Ei "s/\"Server:\s*(nginx\"|\"\s*NGINX_VER|\"\s*NGINX_VER_BUILD)\s*CRLF;/\"Server: luexu.com\" CRLF;/" "/usr/local/src/${NginxVer}/src/http/ngx_http_header_filter_module.c"; \
     fi
 
 RUN if [ -f "/usr/local/src/${NginxVer}/src/http/v2/ngx_http_header_filter_module.c" ]; then \
-        sed -Ei "s/\"Server:\s*(nginx\"|\"\s*NGINX_VER|\"\s*NGINX_VER_BUILD)\s*CRLF;/\"Server: luexu.com\" CRLF;/" /usr/local/src/${NginxVer}/src/http/v2/ngx_http_header_filter_module.c; \
+        sed -Ei "s/\"Server:\s*(nginx\"|\"\s*NGINX_VER|\"\s*NGINX_VER_BUILD)\s*CRLF;/\"Server: luexu.com\" CRLF;/" "/usr/local/src/${NginxVer}/src/http/v2/ngx_http_header_filter_module.c"; \
     fi
+
+WORKDIR /usr/local/src/${NginxVer}
 
 #--add-module=/usr/local/src/${NGX_NJS_VER}/nginx				\
 RUN ./configure                                 \
